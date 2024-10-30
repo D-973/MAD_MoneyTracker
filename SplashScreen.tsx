@@ -1,13 +1,27 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
-import {Logo} from '../../assets/icon';
+import Logo from '../../assets/icon';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../Router.tsx'; // Adjust path based on your file structure
 
-const SplashScreen = ({navigation}) => {
+type SplashScreenNavigationProp = NativeStackNavigationProp
+  RootStackParamList,
+  'SplashScreen'
+>;
+
+type Props = {
+  navigation: SplashScreenNavigationProp;
+};
+
+const SplashScreen: React.FC<Props> = ({navigation}) => {
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       navigation.replace('SignIn');
-    }, 3000);
-  }, []);
+    }, 5000); // 5 seconds
+
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <Logo />

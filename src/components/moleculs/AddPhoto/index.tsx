@@ -1,13 +1,41 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
+import React, {useState} from 'react';
+import {NullPhoto} from '../../../assets/icon';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {showMessage} from 'react-native-flash-message';
 
 const AddPhoto = ({text}) => {
+  const [photo, setPhoto] = useState(NullPhoto);
+  const getImage = async () => {
+    const result = await launchImageLibrary({
+      maxWidth: 100,
+      maxHeight: 100,
+      quality: 0.5,
+      includeBase64: true,
+    });
+    if (result.didCancel) {
+      showMessage({
+        message: 'Pilih foto dibatalkan',
+        type: 'danger',
+      });
+      setPhoto(NullPhoto);
+    } else {
+      const assets = result.assets[0];
+      const base64 = `data:${assets.type};base64, ${assets.base64}`;
+      setPhoto({uri: base64});
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.outerCircle}>
-        <View style={styles.innerCircle}>
-          <Text style={styles.text}>{text}</Text>
-        </View>
+        <TouchableOpacity onPress={getImage}>
+          <View style={styles.innerCircle}>
+            <Image source={photo} style={styles.photo} />
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>{text}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -32,19 +60,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   innerCircle: {
-    margin: 10,
     width: 90,
     height: 90,
     borderRadius: 45,
+    backgroundColor: '#F0F0F0',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F0F0F0', //because it uses view that's why it uses backgorund color
+    overflow: 'hidden',
+  },
+  photo: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  textContainer: {
+    position: 'absolute',
+    bottom: 30, // Adjusted this value to move text up
+    left: 0,
+    right: 0,
+    alignItems: 'center',
   },
   text: {
     textAlign: 'center',
-    paddingTop: 24,
-    paddingBottom: 24,
-    paddingLeft: 25,
-    paddingRight: 25,
+    fontSize: 14,
   },
 });

@@ -3,10 +3,10 @@ import React from 'react';
 import {TextInput, HWArrow, AddPhoto} from '../../components/moleculs';
 import {Button, Gap} from '../../components/atoms';
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <HWArrow text="Sign Up" />
+      <HWArrow text="Sign Up" onPress={() => navigation.goBack()} />
       <View style={styles.contentWrapper}>
         <AddPhoto text="Add Photo" />
         <Gap height={16} />
@@ -19,7 +19,7 @@ const SignUp = () => {
         <Gap height={16} />
         <TextInput label="Password" placeholder="Type your password" />
         <Gap height={24} />
-        <Button text="Continue" />
+        <Button text="Continue" onPress={() => navigation.navigate('Home')} />
       </View>
     </View>
   );

@@ -3,7 +3,7 @@ import React from 'react';
 import {Header, TextInput} from '../../components/moleculs';
 import {Button, Gap} from '../../components/atoms';
 
-const SignIn = ({navigation}) => {
+const SignIn = () => {
   return (
     <View style={styles.container}>
       <Header text="Sign In" />
@@ -15,14 +15,9 @@ const SignIn = ({navigation}) => {
         <Gap height={16} />
         <TextInput label="Password" placeholder="Type your password" />
         <Gap height={24} />
-        <Button text="Sign In" onPress={() => navigation.navigate('Home')} />
+        <Button text="Sign In" />
         <Gap height={12} />
-        <Button
-          text="Create New Account"
-          color="#8D92A3"
-          textColor="#FFFFFF"
-          onPress={() => navigation.navigate('SignUp')}
-        />
+        <Button text="Create New Account" color="#8D92A3" textColor="#FFFFFF" />
       </View>
     </View>
   );
