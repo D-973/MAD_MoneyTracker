@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import {Header, TextInput} from '../../components/moleculs';
 import {Button, Gap} from '../../components/atoms';
@@ -7,7 +7,7 @@ const SignIn = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Header text="Sign In" />
-      <View style={styles.contentWrapper}>
+      <ScrollView style={styles.contentWrapper}>
         <TextInput
           label="Email Address"
           placeholder="Type your email address"
@@ -23,7 +23,7 @@ const SignIn = ({navigation}) => {
           textColor="#FFFFFF"
           onPress={() => navigation.navigate('SignUp')}
         />
-      </View>
+      </ScrollView>
     </View>
   );
 };
